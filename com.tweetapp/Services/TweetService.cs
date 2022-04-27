@@ -38,7 +38,12 @@ namespace com.tweetapp.Services
         {
             try
             {
-                return await _tweet.GetAllTweets();
+                var tweets = await _tweet.GetAllTweets();
+                if (tweets != null)
+                {
+                    return tweets.OrderByDescending(m => m.DateAndTimeOfTweet);
+                }
+                return tweets;
             }
             catch(Exception ex)
             {
@@ -51,8 +56,13 @@ namespace com.tweetapp.Services
         {
             try
             {
-                return await _tweet.GetUsersTweet(userId);
-            
+                var tweets =  await _tweet.GetUsersTweet(userId);
+                if (tweets != null)
+                {
+                    return tweets.OrderByDescending(m => m.DateAndTimeOfTweet);
+                }
+                return tweets;
+
             }
             catch(Exception ex)
             {
